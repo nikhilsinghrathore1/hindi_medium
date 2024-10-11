@@ -42,7 +42,7 @@ blog.post("/createPost",async(c)=>{
                 const {success} = CreatePostval.safeParse(body);
                 if(!success){
                     c.status(400)
-                    c.json({msg:"wrongs inputs"})
+                    return c.json({msg:"wrongs inputs"})
                 }
                               const prisma = new PrismaClient({
                               datasourceUrl: c.env.DATABASE_URL,
@@ -75,7 +75,7 @@ blog.put("/updateBlog", async (c)=>{
                 const {success} = updatePostval.safeParse(body);
                 if(!success){
                     c.status(400);
-                    c.json({msg:"wrong inputs"})
+                   return c.json({msg:"wrong inputs"})
                 }
                               const prisma = new PrismaClient({
                               datasourceUrl: c.env.DATABASE_URL,

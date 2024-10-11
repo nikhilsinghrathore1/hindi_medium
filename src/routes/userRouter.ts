@@ -18,16 +18,18 @@ userRouter.post("/signup", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
+  console.log(body)
 
+  const { success, error } = signupval.safeParse(body);
+
+  if (!success) {
+    // If validation fails, send a 400 status with the error message
+    c.status(400);
+    return c.json({ msg: "Invalid inputs", error: error.errors });
+  }
+  console.log(success)
   try {
 
-    const {success} = signupval.safeParse(body)
-
-    if(!success)
-    {
-      c.status(400)
-      c.json({msg:"invalid inputs"})
-    }
 
     const user = await prisma.user.create({
       data: {
@@ -46,18 +48,19 @@ userRouter.post("/signup", async (c) => {
   }
 });
 
-userRouter.post("/api/v1/signIn", async (c) => {
+userRouter.post("/signIn", async (c) => {
   const body = await c.req.json();
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
+  const {success} = signInval.safeParse(body)
+  if(!success){
+    c.status(400)
+   return c.json({msg:"invalid inputs"})
+
+  }
   try {
-    const {success} = signInval.safeParse(body)
-    if(!success){
-      c.status(400)
-      c.json({msg:"invalid inputs"})
-    }
 
     const user = await prisma.user.findUnique({
       where: {
