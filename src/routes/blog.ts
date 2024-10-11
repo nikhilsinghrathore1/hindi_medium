@@ -2,7 +2,8 @@ import { Hono } from 'hono'
 import { PrismaClient } from '@prisma/client/edge'
 import { withAccelerate } from '@prisma/extension-accelerate'
 import { decode, jwt, sign, verify } from 'hono/jwt'
-
+import { CreatePostval } from '@nikochan256/medium_common'
+import { updatePostval } from '@nikochan256/medium_common'
 
            
 export const blog = new Hono<{
@@ -38,6 +39,11 @@ blog.post("/createPost",async(c)=>{
                const user = c.get("authid");
                console.log(user)
                try{
+                const {success} = CreatePostval.safeParse(body);
+                if(!success){
+                    c.status(400)
+                    c.json({msg:"wrongs inputs"})
+                }
                               const prisma = new PrismaClient({
                               datasourceUrl: c.env.DATABASE_URL,
                               }).$extends(withAccelerate());
@@ -65,6 +71,12 @@ blog.put("/updateBlog", async (c)=>{
                const body =await c.req.json()
                const user = c.get("authid");
                try{
+
+                const {success} = updatePostval.safeParse(body);
+                if(!success){
+                    c.status(400);
+                    c.json({msg:"wrong inputs"})
+                }
                               const prisma = new PrismaClient({
                               datasourceUrl: c.env.DATABASE_URL,
                               }).$extends(withAccelerate());
