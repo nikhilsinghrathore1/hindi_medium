@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useRef, useState } from 'react'
+import {useRef, useState } from 'react'
 import { RxCross2 } from "react-icons/rx";
 import { useNavigate } from 'react-router-dom';
 
@@ -9,12 +9,12 @@ const Landing = () => {
                
                              const navigator = useNavigate()
                
-               const popup = useRef(null)
+                             const popup = useRef<HTMLDivElement | null>(null);
                const [username, setusername] = useState("")
                const [password, setpassword] = useState("")
 
 
-               const handleSubmit =(e)=>{
+               const handleSubmit =(e:any)=>{
                               e.preventDefault()
                               
                               signUpFunc()
@@ -79,7 +79,9 @@ const Landing = () => {
 
                               {/* signUp button  */}
                               <div onClick={()=>{
-                                             popup.current.style.scale=1
+                                           if (popup.current) {
+                                            popup.current.style.scale = '1';
+                                          }
                                              }} className=' py-[7.5px] cursor-pointer w-[196px] text-[1.25rem] mt-12 f2 bg-black rounded-full text-white flex items-center justify-center'>
                                              <h1>Start reading</h1>
                               </div>
@@ -118,7 +120,11 @@ const Landing = () => {
                                              {/* top section of the popup window */}
                                              
                                              <div className='flex items-center opacity-60 pr-5 pt-4 text-[1.2rem] justify-end'>
-                                                            <div onClick={()=>popup.current.style.scale = 0 }  className='w-fit h-fit cursor-pointer'>
+                                                            <div onClick={()=>{
+                                                              if(popup.current){
+                                                                popup.current.style.scale = "0"
+                                                              }
+                                                            } }  className='w-fit h-fit cursor-pointer'>
                                                             <RxCross2/>
                                                             </div>
                                              </div>
