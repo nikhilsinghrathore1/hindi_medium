@@ -1,4 +1,3 @@
-import React from 'react'
 import SingleNews from './SingleNews'
 
 const StaffPicks = () => {

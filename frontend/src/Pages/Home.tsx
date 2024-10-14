@@ -1,4 +1,3 @@
-import React from 'react'
 import AllBlogscont from '../components/AllBlogscont'
 import Navbar from '../components/Navbar'
 import StickyRight from '../components/StickyRight'
