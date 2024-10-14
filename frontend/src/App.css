@@ -1,0 +1,29 @@
+@font-face {
+               font-family: "font1";
+               src: url("../gt-super-400-normal.ttf");
+}
+@font-face {
+               font-family: "font2";
+               src: url("../sohne-400-normal.ttf");
+}
+@font-face {
+               font-family: "font3";
+               src: url("../sohne-700-normal.ttf");
+}
+@font-face {
+               font-family: "font4";
+               src: url("../source-serif-pro-700-normal.ttf");
+}
+
+.f1{
+               font-family: font1;
+}
+.f2{
+               font-family: font2;
+}
+.f3{
+                font-family: font3
+}
+.f4{
+                font-family: font4
+}

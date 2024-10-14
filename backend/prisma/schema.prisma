@@ -37,3 +37,10 @@ model Blog {
 }
 
 
+model wipro_emp{
+  EmpID Int @id @default(autoincrement())
+  EmpName String 
+  DeptId Int
+  Salary Int 
+  JoiningYear Int
+}
