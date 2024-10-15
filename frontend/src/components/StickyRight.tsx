@@ -2,7 +2,7 @@ import StaffPicks from "./StaffPicks"
 
 const StickyRight = () => {
   return (
-               <div className='w-[34%] h-[200vh] border-l-[1px] border-black/10'>
+               <div className='w-[34%] h-fit  border-l-[1px] border-black/10'>
                       {/* staff pics component */}
                      <StaffPicks/>
 

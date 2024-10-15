@@ -7,7 +7,7 @@ const Home = () => {
     <div>
                <Navbar/>
 
-               <div className='w-full flex '>
+               <div className='w-full flex h-[100vh] overflow-hidden '>
                 <AllBlogscont/>
                 <StickyRight/>
                </div>

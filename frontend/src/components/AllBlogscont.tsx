@@ -1,10 +1,33 @@
+import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import SingleBlog from "./SingleBlog";
+import {useState , useEffect} from "react"
 
 
 const AllBlogscont = () => {
+  const [blogs, setblogs] = useState([])
+
+  const token = localStorage.getItem("medium_token")
+
+  const getBlogs =async() =>{
+    const res = await axios.get("https://medium.sunny3355singh.workers.dev/api/v1/blog/getAllBlog",{
+      headers:{
+        "Authorization" : token 
+      }
+    }) 
+    if(res){
+
+      setblogs(res.data);
+    }
+  }
+
+  useEffect(() => {
+    getBlogs()
+  }, [])
+  
+
   return (
-               <div className='w-[66%]'>
+               <div className='w-[66%] overflow-x-auto'>
                               
                               {/* top navigation section or the  */}
 
@@ -44,8 +67,15 @@ const AllBlogscont = () => {
                               </div>
 
 
+
                               {/* the main thingy the blog stuff  */}
-                              <SingleBlog/>
+
+                              {blogs ? 
+                              blogs.map((e,i)=>      <SingleBlog/>
+                              )
+                          
+         
+                              :(<p>loading all your blogs</p>)}
 
 
                </div>
