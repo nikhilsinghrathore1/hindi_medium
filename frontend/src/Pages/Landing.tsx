@@ -11,6 +11,8 @@ const Landing = () => {
                
                              const popup = useRef<HTMLDivElement | null>(null);
                const [username, setusername] = useState("")
+               const [loading, setloading] = useState(false)
+               
                const [password, setpassword] = useState("")
 
 
@@ -20,12 +22,24 @@ const Landing = () => {
                               signUpFunc()
                }
                const signUpFunc = async()=>{
-                              const res = await axios.post("https://medium.sunny3355singh.workers.dev/api/v1/user/signup",{username:username,password:password})
-                              console.log(res)
+                          try{
+                            setloading(true)
+                            const res = await axios.post("https://medium.sunny3355singh.workers.dev/api/v1/user/signup",{username:username,password:password})
+                            console.log(res)
                             localStorage.setItem("medium_token" , res.data)
-                              if(res){
-                                             navigator("/home")
-                              }
+                            if(res){
+                              setloading(false)
+                              setTimeout(() => {
+                                navigator("/home")
+                              }, 1000);
+                            }
+                          }
+                          catch(error){
+                            console.log(error)
+                          }
+                          finally{
+                            setloading(false)
+                          }
 
                }
 // three section top , middel , bottom
@@ -80,7 +94,7 @@ const Landing = () => {
                               {/* signUp button  */}
                               <div onClick={()=>{
                                            if (popup.current) {
-                                            popup.current.style.scale = '1';
+                                            popup.current.style.top = '0';
                                           }
                                              }} className=' py-[7.5px] cursor-pointer w-[196px] text-[1.25rem] mt-12 f2 bg-black rounded-full text-white flex items-center justify-center'>
                                              <h1>Start reading</h1>
@@ -113,7 +127,7 @@ const Landing = () => {
 
                {/* the pop up window for the signUp screen  */}
 
-               <div ref={popup} className='absolute w-full h-full  top-0 bg-white/95 flex items-center justify-center origin-center scale-  transition-all duration-500 '>
+               <div ref={popup} className='absolute w-full h-full  top-[-100%] bg-white/95 flex items-center justify-center origin-center   transition-all duration-500 '>
 
                               {/* internal div */}
                               <div  className='w-[43%] h-[80%] bg-white shadow-xl shadow-black/30 rounded-lg '>
@@ -122,7 +136,8 @@ const Landing = () => {
                                              <div className='flex items-center opacity-60 pr-5 pt-4 text-[1.2rem] justify-end'>
                                                             <div onClick={()=>{
                                                               if(popup.current){
-                                                                popup.current.style.scale = "0"
+                                                                console.log("clicked")
+                                                                popup.current.style.top = "-100%"
                                                               }
                                                             } }  className='w-fit h-fit cursor-pointer'>
                                                             <RxCross2/>
@@ -144,7 +159,7 @@ const Landing = () => {
 
                                                             <input  onChange={e=>setusername(e.target.value)} className='w-[50%] px-5 border-black/70 h-10 border rounded outline-none' type="text" placeholder='username' />
                                                             <input onChange={e=>setpassword(e.target.value)} className='w-[50%] px-5  border-black/70 h-10 border rounded outline-none' type="text" placeholder='password' />
-                                                            <input  onClick={handleSubmit} className='w-[50%] px-5 border-black/70 h-10 border rounded outline-none bg-black text-white' type="submit"  />
+                                                            <div  onClick={handleSubmit} className={`w-[50%] flex items-center justify-center px-5 border-black/70 h-10 border rounded outline-none ${loading? "bg-blue-500 " : "bg-black"}  text-white`}>{loading?"please wait" : "submit"}</div>
                                                             <div className='w-[50%] px-5 border-black/70 h-10 border rounded outline-none bg-black text-white flex items-center justify-center'> Sign-In with Google</div>
                                                             
                                                             </form>

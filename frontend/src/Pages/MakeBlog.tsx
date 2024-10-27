@@ -10,7 +10,7 @@ const MakeBlog = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const handlePublish = async (e) => {
+  const handlePublish = async () => {
     if (!title || !content) {
       setError("Title and content cannot be empty.");
       return;

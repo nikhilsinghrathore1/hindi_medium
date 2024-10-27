@@ -2,7 +2,19 @@
 import { CiBookmarkPlus } from "react-icons/ci";
 import { CiCircleMinus } from "react-icons/ci";
 import { BsThreeDots } from "react-icons/bs";
-const SingleBlog = () => {
+import img from "../../public/noImage.jpg"
+import React from "react";
+
+interface val {
+  data:{
+    title:string
+    id:number,
+    content:string,
+    thumbnail:string
+  }
+}
+
+const SingleBlog:React.FC<val> = ({data}) => {
   return (
                <div className="w-full h-[27vh] flex items-center mt-10 justify-center ">
                <div className="w-[75%]  flex h-full border-b-[1px] border-black/10">
@@ -18,14 +30,14 @@ const SingleBlog = () => {
                      <div className="w-6 h-6 rounded-full overflow-hidden">
                        <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1727767968533-6c6b679fdac7?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHw0fHx8ZW58MHx8fHx8" alt="not showing" />
                      </div>
-                     <div className="text-[0.9rem] f2 opacity-90 "><h1>Emmanual Ikhogo</h1></div>
+                     <div className="text-[0.9rem] f2 opacity-90 "><h1>Emmanual Ikhogo0</h1></div>
                    </div>
 
                    {/* the blog heading section  */}
 
                    <div className="w-full px-4">
                            {/* the main heading */}
-                           <h1 className="text-[1.6rem] mt-3 f3 font-extrabold">Data Science is dying; here's why</h1>
+                           <h1 className="text-[1.6rem] mt-3 f3 font-extrabold">{data.title}</h1>
 
                            {/* supporting sub para  */}
                            <p className="f2 opacity-80  text-[1.05rem] mt-2">why 85% of the projects fail</p>
@@ -73,7 +85,9 @@ const SingleBlog = () => {
                  </div>
                  <div className="w-[27%] flex items-center justify-end h-full">
                    <div className="w-[98%] h-[70%] overflow-hidden rounded-md">
-                     <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1726925793996-8e478b4f99ee?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8" alt="not showing" />
+                 {data.thumbnail?<>
+                 {data.thumbnail.length <10 ? <img src={img} alt="thumbnail"></img> : <img src={data.thumbnail} alt="thumbnail"></img>}
+                 </> : <img src={img} alt="thumbnail"></img>}
                    </div>
                  </div>  
 

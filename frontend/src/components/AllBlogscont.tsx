@@ -2,22 +2,36 @@ import axios from "axios";
 import { FaPlus } from "react-icons/fa6";
 import SingleBlog from "./SingleBlog";
 import {useState , useEffect} from "react"
-
+import Loading from "../../public/Loading.mp4"
 
 const AllBlogscont = () => {
   const [blogs, setblogs] = useState([])
+  const [loading, setloading] = useState(false)
 
   const token = localStorage.getItem("medium_token")
 
-  const getBlogs =async() =>{
-    const res = await axios.get("https://medium.sunny3355singh.workers.dev/api/v1/blog/getAllBlog",{
-      headers:{
-        "Authorization" : token 
-      }
-    }) 
-    if(res){
 
-      setblogs(res.data);
+  const getBlogs =async() =>{
+    try{
+
+      setloading(true)
+      
+      const res = await axios.get("https://medium.sunny3355singh.workers.dev/api/v1/blog/getAllBlog",{
+        headers:{
+          "Authorization" : token 
+        }
+      }) 
+      if(res){
+        
+        setblogs(res.data);
+        
+      }
+    }
+    catch(error){
+        console.log(error)
+    }
+    finally{
+      setloading(false)
     }
   }
 
@@ -70,12 +84,18 @@ const AllBlogscont = () => {
 
                               {/* the main thingy the blog stuff  */}
 
+
+                              {loading?<div className="w-full overflow-hidden h-full  flex items-center justify-center">
+                                                <video className="w-1/2 h-1/2 object-contain" muted autoPlay loop src={Loading}></video>
+                              </div>:<>
+
                               {blogs ? 
-                              blogs.map((e,i)=>      <SingleBlog/>
+                              blogs.map((e,i)=>      <SingleBlog data={e} key={i}/>
                               )
-                          
-         
+                              
+                              
                               :(<p>loading all your blogs</p>)}
+                              </>}
 
 
                </div>
