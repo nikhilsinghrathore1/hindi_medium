@@ -3,6 +3,7 @@ import { blog } from './routes/blog';
 import {userRouter} from "./routes/userRouter"
 import { cors } from 'hono/cors'
 import { empRouter } from './routes/empRouter';
+import { Manager_Router } from './routes/Manager';
 
 
 
@@ -35,6 +36,7 @@ app.use(
 app.route("/api/v1/blog",blog)
 app.route("/api/v1/user",userRouter)
 app.route("api/v1/emp",empRouter)
+app.route("api/v1/manager" , Manager_Router)
 
 
 export default app

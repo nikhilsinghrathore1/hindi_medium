@@ -44,3 +44,9 @@ model wipro_emp{
   Salary Int 
   JoiningYear Int
 }
+
+model Emp_manager { 
+  id Int @id @default(autoincrement())
+  Emp_name String? 
+  Manager_id Int
+}

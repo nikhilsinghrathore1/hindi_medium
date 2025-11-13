@@ -147,3 +147,12 @@ blog.get("/getAllBlog" ,async (c)=>{
 
 
 // now most of the functionalities are done only have to deploy this shizzzz
+
+// protocols 
+
+// 1. inner join : return the common data only ; 
+// 2.left outer join : left table data + common data ; 
+// 3.right outer join : right table data + common data ; 
+// 4.full outer join : left + right + common 
+// 5.left exclusive : left table data - common data ; 
+// 6.right exclusive : right table data - common data ; 
